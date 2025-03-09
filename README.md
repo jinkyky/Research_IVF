@@ -13,8 +13,3 @@ IVFIndex index(256, 20);  // 256 clusters, 20 vectors per cluster
 
 ### Run the code
 
-### Result
-
-![](C:\Users\yycomputer\Desktop\research\photo\1000_vectors_128_dim_30_k.png)
-
-![](C:\Users\yycomputer\Desktop\research\photo\image-20250308144641097.png)
