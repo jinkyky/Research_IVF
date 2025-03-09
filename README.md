@@ -4,6 +4,7 @@
 
 ### Parameters
 
+you can change the parameters in the code to test more samples
 ```c++
 int num_vectors = 1000 //number of vectors
 int dim = 128 // vector dimention
