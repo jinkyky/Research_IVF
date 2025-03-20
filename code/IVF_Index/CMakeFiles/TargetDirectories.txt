@@ -1,3 +1,0 @@
-C:/Users/yycomputer/Desktop/research/code/IVF_Index/CMakeFiles/ivf_demo.dir
-C:/Users/yycomputer/Desktop/research/code/IVF_Index/CMakeFiles/edit_cache.dir
-C:/Users/yycomputer/Desktop/research/code/IVF_Index/CMakeFiles/rebuild_cache.dir
