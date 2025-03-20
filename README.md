@@ -13,36 +13,61 @@ IVFIndex index(256, 20);  // 256 clusters, 20 vectors per cluster
 
 ### Run the code
 
-1. download code from github [code](https://github.com/jinkyky/Research_IVF.git)
+1.克隆仓库
 
-2. open terminal , enter : 
+```bash
+git clone git@github.com:jinkyky/Research_IVF.git
+```
 
-   ```js
-   cd code/IVF_Index
-   ```
+2.在ann基准测试数据集中找到SIFT数据集
 
-3. compile
+[erikbern/ann-benchmarks: Benchmarks of approximate nearest neighbor libraries in Python](https://github.com/erikbern/ann-benchmarks)
 
-   ```js
-   g++ -O3 -mavx2 -fopenmp -Iinclude src/k_means.cpp src/IVF.cpp src/utils.cpp main.cpp -o ivf_demo
-   ```
+通过lftp下载ANN_SIFT1M或ANN_SIFT1B数据集，存放到仓库的data目录中（以1B为例）
 
-   or use cmake:
+```bash
+lftp -e "pget /local/texmex/corpus/bigann_base.bvecs.gz; exit" ftp://ftp.irisa.fr
+gzip -d bigann_base.bvecs.gz
+...
+```
 
-   ```js
-   cmake -G "MinGW Makefiles" .
-   mingw32-make.exe all 
-   ```
+3.下载并安装eigen库
 
-   or mount all files in one directory , then:
+```bash
+git clone git@gitlab.com:libeigen/eigen.git
+cd eigen
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+sudo make install(默认头文件存放于/usr/local/include/eigen3中)
+```
 
-   ```js
-   g++ IVF.cpp IVF.h k_means.cpp k_means.h main.cpp utils.cpp utils.hpp -o ivf_demo
-   ```
+如果要跑1M数据集，还需要下载hdf5库
 
-4. finally the executable file ivf_demo.exe is generated,run it
+https://www.hdfgroup.org/download-hdf5/source-code/
+将tar.gz文件下载到linux环境中
 
+```bash
+tar -xvzf hdf5-1.14.6.tar.gz
+cd hdf5-1.14.6
+sudo ./configure --prefix=/usr/local/hdf5
+sudo make
+sudo make install
+make check_install
+sudo apt-get install libhdf5-dev
+```
 
+4.编译并测试程序, 若进行1B数据集测试，则在KNNPack.h中#define TEST_1B，此时向量类型为uint8_t，否则为float类型
+
+```bash
+make
+./ex_main [--use-pca] [--limit-thread=x] [--iter=y]
+```
+
+iter: 查询次数
+
+可以观察降维、索引建立、查询时间和召回率
 
 ### Paper Reading
 
